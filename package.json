@@ -1,0 +1,22 @@
+{
+  "name": "notes8",
+  "version": "1.0.0",
+  "description": "notes8.com sitesi üzerinden web scrapping ile veri çekme",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "Web",
+    "Scrapping"
+  ],
+  "author": "Fatih ATES, Bayram Atakan KOSDURMA, Tayfur GULEN",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "chromedriver": "^87.0.0",
+    "selenium-webdriver": "^4.0.0-beta.2",
+    "yargs": "^16.2.0"
+  }
+}
