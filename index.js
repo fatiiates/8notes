@@ -1,5 +1,5 @@
 const yargs = require('yargs')
-const searchCommands = require('./commands/search.js')
+const SearchCommand = require('./commands/search')
 
 yargs.command({
     command: 'search',
@@ -16,17 +16,26 @@ yargs.command({
             type: 'string'
         }
     },
-    handler: function (argv) {
-        if (![undefined, "", null].includes(argv.all))
-            searchCommands.searchingAllLinks(argv.all)
-        else if (![undefined, "", null].includes(argv.instrument))
-            searchCommands.searchingByInstrument(argv.instrument)
-        else if (![undefined, "", null].includes(argv.style))
-            searchCommands.searchingByStyle(argv.style)
-        else if (![undefined, "", null].includes(argv.artist))
-            searchCommands.searchingByArtist(argv.artist)
-        else 
-            console.log(chalk.red.inverse('There are missing parameters'));
+    handler: async function (argv) {
+        try {
+            await SearchCommand.init();
+            if (![undefined, "", null].includes(argv.all))
+                await SearchCommand.searchingForAll(argv.all)
+            else if (![undefined, "", null].includes(argv.instrument))
+                await SearchCommand.searchingByInstrument(argv.instrument)
+            else if (![undefined, "", null].includes(argv.style))
+                await SearchCommand.searchingByStyle(argv.style)
+            else if (![undefined, "", null].includes(argv.artist))
+                await SearchCommand.searchingByArtist(argv.artist)
+            else 
+                console.log(chalk.red.inverse('There are missing parameters'));
+    
+        } catch (error) {
+            
+        }
+        finally {
+            SearchCommand.destroy();
+        }
     }
 })
 yargs.parse()
