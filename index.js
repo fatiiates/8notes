@@ -18,7 +18,6 @@ yargs.command({
     },
     handler: async function (argv) {
         try {
-            await SearchCommand.init();
             if (![undefined, "", null].includes(argv.all))
                 await SearchCommand.searchingForAll(argv.all)
             else if (![undefined, "", null].includes(argv.instrument))
@@ -31,7 +30,7 @@ yargs.command({
                 console.log(chalk.red.inverse('There are missing parameters'));
     
         } catch (error) {
-            
+            console.log(error);
         }
         finally {
             SearchCommand.destroy();

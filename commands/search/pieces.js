@@ -30,7 +30,7 @@ const getPiecesByLink = async function(links) {
             let paginationMax = await driver.findElement(By.css('.pagination li:nth-last-child(2)')).getAttribute("textContent");
             paginationMax = parseInt(paginationMax);
 
-            for (let i = 2; i <= paginationMax; i++) {
+            for (let i = 2; i <= paginationMax + 1; i++) {
                 
                 let tbody = await driver.findElement(By.css('.table-responsive tbody'));
                 let tr = await tbody.findElements(By.css('tr'));
@@ -59,11 +59,12 @@ const getPiecesByLink = async function(links) {
                     });
 
                 }
-                if(i != paginationMax){
+                if(i != paginationMax + 1){
                     var url = new URL(link);
                     url.searchParams.append('page', i);
             
                     await driver.navigate().to(url.href);
+                    paginationMax = parseInt(await driver.findElement(By.css('.pagination li:nth-last-child(2)')).getAttribute("textContent"));
                 }
             }
             

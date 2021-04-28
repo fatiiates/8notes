@@ -8,7 +8,7 @@ async function getArtistLink(param = 1) {
         return styleLink;
 
     } catch (error){
-        console.log(error);
+        throw error;
     }
 };
 

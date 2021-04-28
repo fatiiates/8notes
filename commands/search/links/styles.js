@@ -8,7 +8,7 @@ async function getStyleLink(param = 1) {
         return styleLink;
 
     } catch (error){
-		console.log(error);
+		throw error;
 	}
 };
 

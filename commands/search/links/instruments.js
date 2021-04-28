@@ -13,7 +13,7 @@ async function getClassicalStyleLink(param = 1) {
         return classicalStyleLink;
 
     } catch (error){
-		console.log(error);
+		throw error;
 	}
 };
 
