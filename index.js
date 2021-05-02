@@ -1,3 +1,4 @@
+const chalk = require('chalk')
 const yargs = require('yargs')
 const SearchCommand = require('./commands/search')
 

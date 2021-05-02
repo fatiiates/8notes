@@ -114,16 +114,13 @@ class SearchCommand extends Command {
         try {
 
             await SearchCommand.init();
-            
-            const classicalStyleLinks = await SearchCommand.searchingByInstrument("all");
-            const artistLinks = await SearchCommand.searchingByArtist("all");
             const styleLinks = await SearchCommand.searchingByStyle("all");
-
-            const allLinks = classicalStyleLinks.concat(artistLinks, styleLinks);
+            const artistLinks = await SearchCommand.searchingByArtist("all");
+            const classicalStyleLinks = await SearchCommand.searchingByInstrument("all");
+            
+            const allLinks = artistLinks.concat(styleLinks, classicalStyleLinks);
             /*const allLinks = [
-                'https://www.8notes.com/piano/classical/sheet_music/',
-                'https://www.8notes.com/bach.asp',
-                'https://www.8notes.com/all/classical/sheet_music/'
+                'https://www.8notes.com/all/christmas/sheet_music/'
 
             ];*/
             await piece.getPiecesByLink(allLinks);
