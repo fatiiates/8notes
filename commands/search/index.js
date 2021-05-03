@@ -4,20 +4,20 @@ const getStyleLink = require('./links/styles');
 const getArtistLink = require('./links/artists');
 
 const piece = require('./pieces');
-const Command = require('../_command');
+const Command = require('../../lib/_command');
 
 class SearchCommand extends Command {
 
     static searchingByInstrument = async function(title) {   
         try {
             const instruments = ["piano", 
-                            "guitar", 
+                            /*"guitar", 
                             "violin", 
                             "flute", 
                             "saxophone", 
                             "voice", 
                             "clarinet", 
-                            "trumpet"
+                            "trumpet"*/
                         ];
             if(title === "all"){
                 var links = [];
@@ -110,15 +110,29 @@ class SearchCommand extends Command {
         }
     }
     
-    static searchingForAll = async function() {
+    static searchingForAll = async function(command = "all") {
         try {
 
             await SearchCommand.init();
-            const styleLinks = await SearchCommand.searchingByStyle("all");
-            const artistLinks = await SearchCommand.searchingByArtist("all");
-            const classicalStyleLinks = await SearchCommand.searchingByInstrument("all");
+            var allLinks = [];
+
+            if(command == "all"){
+                const styleLinks = await SearchCommand.searchingByStyle("all");
+                const artistLinks = await SearchCommand.searchingByArtist("all");
+                const classicalStyleLinks = await SearchCommand.searchingByInstrument("all");
+
+                allLinks = artistLinks.concat(styleLinks, classicalStyleLinks);
+            }else if(command == "instrument")
+                allLinks = await SearchCommand.searchingByInstrument("all");
+            else if(command == "style")
+                allLinks = await SearchCommand.searchingByStyle("all");
+            else if(command == "artist")
+                allLinks = await SearchCommand.searchingByArtist("all");
+            else{
+                console.log(chalk.red.inverse('Wrong parameter.'));
+                return 0;
+            }
             
-            const allLinks = artistLinks.concat(styleLinks, classicalStyleLinks);
             /*const allLinks = [
                 'https://www.8notes.com/all/christmas/sheet_music/'
 

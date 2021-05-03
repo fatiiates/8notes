@@ -21,6 +21,8 @@ yargs.command({
         try {
             if (![undefined, "", null].includes(argv.all))
                 await SearchCommand.searchingForAll(argv.all)
+            else if(![undefined, "", null].includes(argv.allİnstrument))
+                await SearchCommand.searchingForAll('instrument')
             else if (![undefined, "", null].includes(argv.instrument))
                 await SearchCommand.searchingByInstrument(argv.instrument)
             else if (![undefined, "", null].includes(argv.style))

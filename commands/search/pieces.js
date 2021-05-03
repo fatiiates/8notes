@@ -1,4 +1,4 @@
-const {Builder, By, Key, until} = require('selenium-webdriver');
+const { By } = require('selenium-webdriver');
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 const cliProgress = require('cli-progress');
@@ -14,7 +14,7 @@ function runService(workerData) {
     });
 
     worker.on("exit", (message) => {
-        console.log(2);
+        console.log("İşlem tamamlandı");
     });
     return worker;
 }
@@ -49,7 +49,7 @@ const getPiecesByLink = async function(links) {
             let paginationMax = await driver.findElement(By.css('.pagination li:nth-last-child(2)')).getAttribute("textContent");
             paginationMax = parseInt(paginationMax);
 
-            for (let i = 2; i <= 2 + 1; i++) {
+            for (let i = 2; i <= paginationMax + 1; i++) {
                 
                 let tbody = await driver.findElement(By.css('.table-responsive tbody'));
                 let tr = await tbody.findElements(By.css('tr'));
@@ -62,7 +62,6 @@ const getPiecesByLink = async function(links) {
                 }
 
                 var pieces = [];
-                var x = 0;
                 for (const el of tr) {
                     
                     let td = await el.findElements(By.css('td'));
@@ -78,9 +77,6 @@ const getPiecesByLink = async function(links) {
                         title,
                         difficulty
                     });
-                    x++
-                    if (x == 3) 
-                        break;
                 }
 
                 worker.postMessage(pieces)

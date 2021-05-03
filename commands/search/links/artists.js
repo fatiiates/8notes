@@ -1,4 +1,4 @@
-const {Builder, By, Key, until} = require('selenium-webdriver');
+const { By } = require('selenium-webdriver');
 
 async function getArtistLink(param = 1) {
     try {
