@@ -1,4 +1,4 @@
-const {Builder, By, Key, until} = require('selenium-webdriver');
+const { By } = require('selenium-webdriver');
 
 const webdriver = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
@@ -22,7 +22,7 @@ async function getClassicalStyleLink(param = 1) {
         return classicalStyleLink;
 
     } catch (error){
-		console.log(error);
+		throw error;
 	}
     finally{
         driver.quit();
