@@ -1,3 +1,4 @@
+const chalk = require('chalk')
 const yargs = require('yargs')
 const SearchCommand = require('./commands/search')
 
@@ -18,9 +19,10 @@ yargs.command({
     },
     handler: async function (argv) {
         try {
-            await SearchCommand.init();
             if (![undefined, "", null].includes(argv.all))
-                await SearchCommand.searchingForAll(argv.all)
+                await SearchCommand.searchingForAll("all")
+            else if(![undefined, "", null].includes(argv.allİnstrument) || ![undefined, "", null].includes(argv.allInstrument))
+                await SearchCommand.searchingForAll('instrument')
             else if (![undefined, "", null].includes(argv.instrument))
                 await SearchCommand.searchingByInstrument(argv.instrument)
             else if (![undefined, "", null].includes(argv.style))
@@ -31,7 +33,7 @@ yargs.command({
                 console.log(chalk.red.inverse('There are missing parameters'));
     
         } catch (error) {
-            
+            console.log(error);
         }
         finally {
             SearchCommand.destroy();

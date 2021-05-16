@@ -1,4 +1,4 @@
-const {Builder, By, Key, until} = require('selenium-webdriver');
+const { By } = require('selenium-webdriver');
 
 async function getClassicalStyleLink(param = 1) {
     try {
@@ -13,7 +13,7 @@ async function getClassicalStyleLink(param = 1) {
         return classicalStyleLink;
 
     } catch (error){
-		console.log(error);
+		throw error;
 	}
 };
 
