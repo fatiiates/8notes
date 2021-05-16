@@ -1,9 +1,0 @@
-MONGO_URL=8notes.nizgg.mongodb.net
-MONGO_USER=root
-MONGO_PASS=Root_123
-MONGO_DB=8notes
-
-DATABASE_URL=8notes.nizgg.mongodb.net
-DATABASE_USER=root
-DATABASE_PASS=Root_123
-DATABASE_DB=8notes
