@@ -1,12 +1,13 @@
 const { workerData, isMainThread, parentPort } = require('worker_threads');
-const createDriver = require('../../lib/_driver');
+
 const { By } = require('selenium-webdriver');
 const fs = require('fs');
+
 const Command = require('../../lib/_command');
 
 let queue = [];
 let jsonData = { pieces: [] };
-
+ 
 const main = async function() {
 
     try {
@@ -28,24 +29,37 @@ const main = async function() {
 }
 
 const getAttributes = async function(driver){
+    var localDriver = driver;
     try {
         while(queue.length > 0) {
         
             const array = queue[0];
             for (let j = 0; j < array.length; j++) {
-                
-                await driver.navigate().to('https://www.8notes.com' + array[j].link);
-                const img_containers = await driver.findElements(By.className('img-container'));
+                error = false;
+                await localDriver.navigate().to('https://www.8notes.com' + array[j].link)
+                    .catch(async err => {
+                        await localDriver.quit();
+                        localDriver = null;
+                        localDriver = await Command.init('new');
+                        console.log('Error Item: ' + array[j].link);
+                        j -= 1;
+                        error = true;
+                    });
+                if (error)
+                        continue;
+                const img_containers = await localDriver.findElements(By.className('img-container'));
                 var img_src = [];
                 for (const img_container of img_containers) {
                     const img = await img_container.findElement(By.css('img'));
-                    img_src.push(await img.getAttribute('src'));
+                    const src = await img.getAttribute('src');
+                    if(src)
+                        img_src.push(src);
                 }
         
-                const midi_a_tag = await driver.findElement(By.css('#midi_container > .ilistbox > .versionlist > ul > li:nth-of-type(3) > a'));
+                const midi_a_tag = await localDriver.findElement(By.css('#midi_container > .ilistbox > .versionlist > ul > li:nth-of-type(3) > a'));
                 const midi_href = await midi_a_tag.getAttribute('href');
                 
-                const comp_table = await driver.findElement(By.css('#infobox > .comp_table'));
+                const comp_table = await localDriver.findElement(By.css('#infobox > .comp_table'));
                 const comp_table_content = await comp_table.getText();
         
                 array[j] = {
@@ -75,7 +89,6 @@ const getAttributes = async function(driver){
         parentPort.postMessage('done');
     }
     
-
 }
 
 if(!isMainThread)

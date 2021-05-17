@@ -1,4 +1,5 @@
 const chalk = require('chalk')
+
 const getClassicalStyleLink = require('./links/instruments');
 const getStyleLink = require('./links/styles');
 const getArtistLink = require('./links/artists');
@@ -11,13 +12,13 @@ class SearchCommand extends Command {
     static searchingByInstrument = async function(title) {   
         try {
             const instruments = ["piano", 
-                            /*"guitar", 
+                            "guitar", 
                             "violin", 
                             "flute", 
                             "saxophone", 
                             "voice", 
                             "clarinet", 
-                            "trumpet"*/
+                            "trumpet"
                         ];
             if(title === "all"){
                 var links = [];
@@ -133,10 +134,6 @@ class SearchCommand extends Command {
                 return 0;
             }
             
-            /*const allLinks = [
-                'https://www.8notes.com/all/christmas/sheet_music/'
-
-            ];*/
             await piece.getPiecesByLink(allLinks);
 
         } catch (error) {
