@@ -45,14 +45,9 @@ function runService(workerData) {
 const getPiecesByLink = async function(links) {
     try {
         
-        const opt = {
-            format: 'Veriler ayıklanıyor... [{bar}] {percentage}% | Kalan süre: {eta}s | {value}/{total}'
-        };
-
         const filename = 'outputs/pieces_dump_' + (new Date()).getTime() + '_' + uuidv4() + '.json';
         var jsonData = { pieces: [] };
-        var data = JSON.stringify(jsonData, null, '\t');
-        
+        var data = JSON.stringify(jsonData, null, '\t');   
 
         await fs.writeFile(__dirname + '/../../' + filename, data, { flag: 'w+' })
             .catch(err => { throw err });
@@ -98,8 +93,8 @@ const getPiecesByLink = async function(links) {
 
                 worker.postMessage(pieces)
                 if(!startControl){
-                    startControl = true;
                     worker.postMessage('start');
+                    startControl = true;
                 }
 
                 if(i != paginationMax + 1){

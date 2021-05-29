@@ -83,6 +83,10 @@ NodeJS root için kurulduğunda diğer kullanıcıların da kullanabilmesini sa�
 
 ## ARAÇ KURULUMU ve KULLANIMI
 
+## Chromedriver
+
+Package json içerisinde varsayılan olarak 90.0.0 versiyonu hazır olarak gelmektedir. Eğer ki farklı bir Chrome sürümünüz mevcutsa bu değeri güncellemeniz gerekmektedir.
+
 1. Bilgisayarınızın komut satırı arayüzünü açın.
 2. Dizin değiştirerek deponun bulunduğu dizinin içine gelin.
 3. Paketleri kurmak için öncelikle aşağıdaki komutu çalıştırın.
@@ -103,5 +107,9 @@ NodeJS root için kurulduğunda diğer kullanıcıların da kullanabilmesini sa�
 
             node index.js search --style="<your_artist>"
 
+    - İkinci aşama için aşağıdaki komutu çalıştırın.
+
+            npm run-script stage-2
     
 5. İşlemler internet hızınıza, bilgisayarınızın özelliklerine ve sitenin isteklere yanıt verme hızına göre biraz uzun sürebilir.
+
